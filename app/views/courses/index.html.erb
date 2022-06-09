@@ -14,40 +14,53 @@
             <div id="collapse<%= c.id %>" class="accordion-collapse collapse" aria-labelledby="heading<%= c.id %>" data-bs-parent="#accordionBeep">
               <div class="accordion-body">
                 <table class="table table-striped">
-                  <thead>
-                    <tr>
-                      <th scope="col">Name</th>
-                      <th scope="col">Question</th>
-                      <th scope="col">Template</th>
-                      <th scope="col">Format</th>
-                    </tr>
-                  </thead>
-                  <tbody>
-                    <% c.course_registration_details.each do |crd| %>
+                  <% if c.course_registration_details.present? %>
+                    <thead>
                       <tr>
-                        <th scope="row"><%= crd.name %></th>
-                        <td><%= crd.question %></td>
-                        <td><%= crd.template %></td>
-                        <td><%= crd.format %></td>
+                        <th scope="col">Name</th>
+                        <th scope="col">Question</th>
+                        <th scope="col">Template</th>
+                        <th scope="col">Format</th>
                       </tr>
-                      <% if crd.template == 'select' %>
+                    </thead>
+                    <tbody>
+                      <% c.course_registration_details.each do |crd| %>
                         <tr>
-                         <td colspan="4">
-                          <% if crd.course_registration_detail_values.present? %>
-                            <div class="py-2">Registration Detail Values</div>
-                            <ul class="list-group">
-                              <% crd.course_registration_detail_values.each do |crdv| %>
-                                 <li class="list-group-item"><%= crdv.value %></li>
-                              <% end %>
-                             </ul>
-                          <% else %>
-                            <div class="py-2">No Registration Detail Values</div>
-                          <% end %>
-                          </td>
-                         </tr>
-                       <% end %>
-                    <% end %>
-                  </tbody>
+                          <th scope="row"><%= crd.name %></th>
+                          <td><%= crd.question %></td>
+                          <td><%= crd.template %></td>
+                          <td><%= crd.format %></td>
+                        </tr>
+                        <% if crd.template == 'select' %>
+                          <tr>
+                           <td colspan="4">
+                            <% if crd.course_registration_detail_values.present? %>
+                              <div class="py-2">Registration Detail Values</div>
+                              <ul class="list-group">
+                                <% crd.course_registration_detail_values.each do |crdv| %>
+                                   <li class="list-group-item"><%= crdv.value %></li>
+                                <% end %>
+                               </ul>
+                            <% else %>
+                              <div class="py-2">Missing Registration Detail Values</div>
+                            <% end %>
+                            </td>
+                           </tr>
+                         <% end %>
+                      <% end %>
+                    </tbody>
+                  <% else %>
+                    <thead>
+                      <tr>
+                        <th scope="col">Name</th>
+                      </tr>
+                    </thead>
+                    <tbody>
+                      <tr>
+                        <td>Missing Registration Details</td>
+                      </tr>
+                    </tbody>
+                  <% end %>
                 </table>
               </div>
             </div>
