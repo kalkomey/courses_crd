@@ -1,0 +1,60 @@
+<div class="container-fluid">
+  <div class="row">
+    <div class="col">
+
+
+      <div class="accordion" id="accordionBeep">
+        <% @courses.each do |c| %>
+          <div class="accordion-item">
+            <h2 class="accordion-header" id="heading<%= c.id %>">
+              <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapse<%= c.id %>" aria-expanded="true" aria-controls="collapse<%= c.id %>">
+                <b class="pe-2"><%= c.id %></b><span> <%= c.course_name %> / <%= c.course_domain %></span>
+              </button>
+            </h2>
+            <div id="collapse<%= c.id %>" class="accordion-collapse collapse" aria-labelledby="heading<%= c.id %>" data-bs-parent="#accordionBeep">
+              <div class="accordion-body">
+                <table class="table table-striped">
+                  <thead>
+                    <tr>
+                      <th scope="col">Name</th>
+                      <th scope="col">Question</th>
+                      <th scope="col">Template</th>
+                      <th scope="col">Format</th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    <% c.course_registration_details.each do |crd| %>
+                      <tr>
+                        <th scope="row"><%= crd.name %></th>
+                        <td><%= crd.question %></td>
+                        <td><%= crd.template %></td>
+                        <td><%= crd.format %></td>
+                      </tr>
+                      <% if crd.template == 'select' && crd.course_registration_detail_values.present? %>
+                        <tr>
+                         <td colspan="4">
+                           <div class="py-2">Registration Detail Values</div>
+                           <ul class="list-group">
+                             <% crd.course_registration_detail_values.each do |crdv| %>
+                              <li class="list-group-item"><%= crdv.value %></li>
+                             <% end %>
+                            </ul>
+                         </td>
+                        </tr>
+                      <% end %>
+
+                    <% end %>
+                  </tbody>
+                </table>
+              </div>
+            </div>
+          </div>
+        <% end %>
+      </div>
+
+
+
+
+    </div>
+  </div>
+</div>
