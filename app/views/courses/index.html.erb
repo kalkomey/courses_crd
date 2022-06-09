@@ -30,19 +30,22 @@
                         <td><%= crd.template %></td>
                         <td><%= crd.format %></td>
                       </tr>
-                      <% if crd.template == 'select' && crd.course_registration_detail_values.present? %>
+                      <% if crd.template == 'select' %>
                         <tr>
                          <td colspan="4">
-                           <div class="py-2">Registration Detail Values</div>
-                           <ul class="list-group">
-                             <% crd.course_registration_detail_values.each do |crdv| %>
-                              <li class="list-group-item"><%= crdv.value %></li>
-                             <% end %>
-                            </ul>
-                         </td>
-                        </tr>
-                      <% end %>
-
+                          <% if crd.course_registration_detail_values.present? %>
+                            <div class="py-2">Registration Detail Values</div>
+                            <ul class="list-group">
+                              <% crd.course_registration_detail_values.each do |crdv| %>
+                                 <li class="list-group-item"><%= crdv.value %></li>
+                              <% end %>
+                             </ul>
+                          <% else %>
+                            <div class="py-2">No Registration Detail Values</div>
+                          <% end %>
+                          </td>
+                         </tr>
+                       <% end %>
                     <% end %>
                   </tbody>
                 </table>
